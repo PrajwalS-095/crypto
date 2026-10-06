@@ -38,10 +38,10 @@ export function ProtocolTable() {
     <div className="my-5 overflow-x-auto rounded border border-line bg-surface">
       <table className="w-full text-left text-sm">
         <caption className="sr-only">Messages exchanged in the simplified KDC protocol</caption>
-        <thead className="border-b border-line bg-sunken text-xs uppercase tracking-wide text-muted">
+        <thead className="border-b border-line bg-sunken text-xs text-muted">
           <tr>
-            <th scope="col" className="w-10 px-3 py-2 font-medium">
-              #
+            <th scope="col" className="w-14 px-3 py-2 font-medium">
+              Step
             </th>
             <th scope="col" className="w-32 px-3 py-2 font-medium">
               Direction

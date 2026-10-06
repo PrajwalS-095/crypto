@@ -12,16 +12,13 @@ export function Block({
 }) {
   return (
     <section className="space-y-2.5">
-      <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
-        <h3 className="text-xs font-semibold uppercase tracking-wider text-muted">{title}</h3>
-        {tag === "notation" && (
-          <span className="rounded-sm border border-line px-1.5 text-[10px] font-medium uppercase tracking-wide text-muted">
-            Protocol notation
-          </span>
-        )}
+      <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
+        <h3 className="text-sm font-semibold text-ink">{title}</h3>
+        {tag === "notation" && <span className="text-xs text-muted">Protocol notation</span>}
         {tag === "browser" && (
-          <span className="rounded-sm border border-ok/30 bg-ok-soft px-1.5 text-[10px] font-medium uppercase tracking-wide text-ok">
-            Performed by your browser · Web Crypto
+          <span className="inline-flex items-center gap-1.5 text-xs text-ok">
+            <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-ok" />
+            Computed in your browser with Web Crypto
           </span>
         )}
       </div>
@@ -48,7 +45,7 @@ export interface Field {
 export function FieldBox({ caption, fields }: { caption: React.ReactNode; fields: Field[] }) {
   return (
     <div className="rounded border border-line bg-surface">
-      <p className="border-b border-line px-3 py-1.5 text-xs font-medium text-ink-soft">{caption}</p>
+      <p className="border-b border-line bg-sunken/60 px-3 py-1.5 text-xs font-medium text-ink-soft">{caption}</p>
       <dl className="divide-y divide-line/70">
         {fields.map((f, i) => (
           <div key={i} className="grid gap-x-3 gap-y-1 px-3 py-2 sm:grid-cols-[9.5rem_minmax(0,1fr)]">
@@ -98,11 +95,11 @@ export function Explanation({ children }: { children: React.ReactNode }) {
 /** Collapsible implementation details. */
 export function TechDetails({ items }: { items: { label: string; value: React.ReactNode }[] }) {
   return (
-    <details className="group rounded border border-line bg-surface text-sm">
-      <summary className="cursor-pointer select-none px-3 py-2 text-xs font-medium text-ink-soft hover:text-ink">
+    <details className="group text-sm">
+      <summary className="cursor-pointer select-none text-xs font-medium text-ink-soft hover:text-ink">
         Technical details
       </summary>
-      <dl className="space-y-2 border-t border-line px-3 py-2.5">
+      <dl className="mt-2.5 space-y-2 rounded border border-line bg-canvas px-3 py-2.5">
         {items.map((item) => (
           <div key={item.label} className="grid gap-x-3 sm:grid-cols-[9.5rem_minmax(0,1fr)]">
             <dt className="text-xs text-muted">{item.label}</dt>

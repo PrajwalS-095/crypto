@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { IBM_Plex_Mono, IBM_Plex_Sans } from "next/font/google";
+import { IBM_Plex_Mono, IBM_Plex_Sans, IBM_Plex_Serif } from "next/font/google";
 import { SiteHeader } from "@/components/layout/site-header";
 import { Sidebar } from "@/components/layout/sidebar";
 import { EXPERIMENT_TITLE } from "@/lib/sections";
@@ -9,6 +9,13 @@ const plexSans = IBM_Plex_Sans({
   subsets: ["latin"],
   weight: ["400", "500", "600"],
   variable: "--font-plex-sans",
+  display: "swap",
+});
+
+const plexSerif = IBM_Plex_Serif({
+  subsets: ["latin"],
+  weight: ["500"],
+  variable: "--font-plex-serif",
   display: "swap",
 });
 
@@ -38,14 +45,14 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f5f4ef",
+  themeColor: "#f2f3f0",
   width: "device-width",
   initialScale: 1,
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${plexSans.variable} ${plexMono.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${plexSans.variable} ${plexSerif.variable} ${plexMono.variable}`} suppressHydrationWarning>
       {/* Browser extensions (e.g. Grammarly) inject attributes on <html>/<body> before hydration. */}
       <body className="min-h-dvh bg-canvas text-ink antialiased" suppressHydrationWarning>
         <a
@@ -55,9 +62,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           Skip to content
         </a>
         <SiteHeader />
-        <div className="mx-auto flex w-full max-w-[1400px]">
+        <div className="flex min-h-[calc(100dvh-3.5rem)] w-full">
           <Sidebar />
-          <main id="main" className="min-w-0 flex-1 px-4 pb-16 pt-6 sm:px-6 lg:px-10 lg:pt-8">
+          <main id="main" className="min-w-0 flex-1 px-4 pb-16 pt-6 sm:px-6 lg:px-6 lg:pt-6">
             {children}
           </main>
         </div>

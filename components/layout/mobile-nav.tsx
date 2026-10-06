@@ -60,7 +60,7 @@ export function MobileNav() {
             className="fade-in absolute inset-y-0 left-0 w-64 max-w-[80vw] border-r border-line bg-sidebar py-4 shadow-lg"
           >
             <div className="mb-3 flex items-center justify-between px-4">
-              <p className="text-[11px] font-semibold uppercase tracking-wider text-muted">Experiment</p>
+              <p className="text-xs font-medium text-muted">Experiment</p>
               <button
                 ref={closeRef}
                 type="button"

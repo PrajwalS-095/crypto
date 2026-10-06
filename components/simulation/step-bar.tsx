@@ -11,12 +11,24 @@ interface StepBarProps {
   status: SimStatus;
   title: string;
   phase: string;
+  /** Short label for each of the steps, in order. */
+  stepLabels: string[];
   onPrevious: () => void;
   onNext: () => void;
   onRestart: () => void;
 }
 
-export function StepBar({ view, completed, status, title, phase, onPrevious, onNext, onRestart }: StepBarProps) {
+export function StepBar({
+  view,
+  completed,
+  status,
+  title,
+  phase,
+  stepLabels,
+  onPrevious,
+  onNext,
+  onRestart,
+}: StepBarProps) {
   const busy = status === "busy";
   const failedStep = status === "aborted" ? completed + 1 : null;
   const lastViewable = failedStep ?? completed;
@@ -25,20 +37,29 @@ export function StepBar({ view, completed, status, title, phase, onPrevious, onN
   const nextDisabled =
     busy || (atFrontier && (status === "aborted" || status === "error" || status === "complete"));
   const nextLabel = atFrontier ? "Next step" : "Next";
+  const shown = Math.max(view, 1);
 
   return (
-    <div className="sticky top-14 z-20 -mx-4 border-b border-line bg-canvas/95 px-4 py-3 backdrop-blur-sm sm:-mx-6 sm:px-6 lg:-mx-10 lg:px-10">
-      <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-3">
-        <div className="min-w-0 flex-1" aria-live="polite" aria-atomic="true">
-          <p className="flex flex-wrap items-center gap-x-3 text-xs text-muted">
-            <span className="font-semibold uppercase tracking-wider text-accent">
-              Step {Math.max(view, 1)} of {TOTAL_STEPS}
-            </span>
-            <span className="hidden sm:inline">
-              Protocol state: <code className="font-mono text-ink-soft">{phase}</code>
+    <div className="sticky top-14 z-20 -mx-4 border-b border-line bg-canvas/95 px-4 pb-3 pt-4 backdrop-blur-sm sm:-mx-6 sm:px-6 lg:-mx-6 lg:px-6">
+      <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-3">
+        <div className="flex min-w-0 flex-1 items-center gap-3 sm:gap-4" aria-live="polite" aria-atomic="true">
+          <p
+            className={`flex shrink-0 items-baseline font-serif leading-none ${failedStep === view ? "text-bad" : "text-accent"}`}
+          >
+            <span className="sr-only">Step </span>
+            <span className="text-[2rem] font-medium tabular-nums sm:text-[2.6rem]">{shown}</span>
+            <span className="ml-0.5 text-base text-muted">
+              <span className="sr-only"> of </span>
+              <span aria-hidden="true">/</span>
+              {TOTAL_STEPS}
             </span>
           </p>
-          <h2 className="mt-0.5 text-lg font-semibold leading-snug text-ink sm:text-xl">{title}</h2>
+          <div className="min-w-0">
+            <h2 className="text-base font-semibold leading-snug text-ink sm:text-xl">{title}</h2>
+            <p className="mt-0.5 hidden text-xs text-muted sm:block">
+              Protocol state <code className="font-mono text-ink-soft">{phase}</code>
+            </p>
+          </div>
         </div>
 
         <div className="flex items-center gap-2">
@@ -69,23 +90,22 @@ export function StepBar({ view, completed, status, title, phase, onPrevious, onN
         </div>
       </div>
 
-      <ol className="mt-3 grid grid-cols-8 gap-1" aria-label="Progress">
-        {Array.from({ length: TOTAL_STEPS }, (_, i) => {
+      <ol className="mt-3.5 grid grid-cols-8 gap-1.5" aria-label="Progress">
+        {stepLabels.map((label, i) => {
           const n = i + 1;
-          const tone =
-            n === failedStep
-              ? "bg-bad"
-              : n === view
-                ? "bg-accent"
-                : n <= completed
-                  ? "bg-accent/35"
-                  : "bg-line";
-          const state = n === failedStep ? "failed" : n <= completed ? "completed" : "not reached";
+          const failed = n === failedStep;
+          const current = n === view;
+          const done = n <= completed;
+          const bar = failed ? "bg-bad" : current ? "bg-accent" : done ? "bg-accent/40" : "bg-line";
+          const text = failed ? "text-bad" : current ? "text-ink font-medium" : done ? "text-ink-soft" : "text-muted/70";
+          const state = failed ? "failed" : done ? "completed" : "not reached";
           return (
-            <li key={n} className={`h-1.5 rounded-full ${tone}`}>
+            <li key={n} className="min-w-0">
+              <span aria-hidden="true" className={`block h-1 rounded-full ${bar}`} />
+              <span className={`mt-1.5 hidden truncate text-[11px] lg:block ${text}`}>{label}</span>
               <span className="sr-only">
-                Step {n}: {state}
-                {n === view ? " (shown)" : ""}
+                Step {n}, {label}: {state}
+                {current ? " (shown)" : ""}
               </span>
             </li>
           );

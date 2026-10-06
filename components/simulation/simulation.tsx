@@ -17,6 +17,8 @@ import { phaseOf } from "@/lib/sim-machine";
 import { STEP_META, personaliseTitle } from "@/lib/steps";
 import type { SimConfig, SimState, StepNumber } from "@/types/simulation";
 
+const STEP_NUMBERS: StepNumber[] = [1, 2, 3, 4, 5, 6, 7, 8];
+
 export function Simulation() {
   const [supported, setSupported] = useState<boolean | null>(null);
   const [draft, setDraft] = useState<SimConfig | null>(null);
@@ -81,6 +83,7 @@ function RunningView({
         status={state.status}
         title={state.view === 0 ? "Starting…" : title}
         phase={state.view === 0 ? "IDLE" : phase}
+        stepLabels={STEP_NUMBERS.map((n) => personaliseTitle(STEP_META[n].short, config.aliceName, config.bobName))}
         onPrevious={sim.previous}
         onNext={sim.next}
         onRestart={sim.restart}
@@ -104,7 +107,11 @@ function RunningView({
           )}
 
           {state.view > 0 && (
-            <section key={view} aria-label={`Step ${view} details`} className="fade-in space-y-5">
+            <section
+              key={view}
+              aria-label={`Step ${view} details`}
+              className="fade-in rounded border border-line bg-surface p-4 sm:p-5 [&>*+*]:mt-5 [&>*+*]:border-t [&>*+*]:border-line [&>*+*]:pt-5"
+            >
               <StepContent
                 step={view}
                 config={config}

@@ -10,7 +10,7 @@ export function KeyTopology() {
       <div className="grid grid-cols-[1fr_auto_1fr_auto_1fr] items-center gap-1 sm:gap-2">
         <Node name="Alice" tone="alice" />
         <KeyEdge keyId="A" />
-        <Node name="KDC" tone="kdc" sub="trusted" />
+        <Node name="KDC" tone="kdc" sub="trusted server" />
         <KeyEdge keyId="B" />
         <Node name="Bob" tone="bob" />
       </div>
@@ -32,7 +32,7 @@ function Node({ name, tone, sub }: { name: string; tone: keyof typeof TONES; sub
   return (
     <div className={`rounded border px-2 py-2 text-center ${TONES[tone]}`}>
       <p className="text-sm font-semibold">{name}</p>
-      {sub && <p className="text-[10px] uppercase tracking-wide opacity-80">{sub}</p>}
+      {sub && <p className="text-[11px] opacity-80">{sub}</p>}
     </div>
   );
 }

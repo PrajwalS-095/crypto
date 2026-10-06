@@ -2,15 +2,16 @@
 
 @theme {
   --font-sans: var(--font-plex-sans), ui-sans-serif, system-ui, "Segoe UI", Roboto, sans-serif;
+  --font-serif: var(--font-plex-serif), ui-serif, Georgia, "Times New Roman", serif;
   --font-mono: var(--font-plex-mono), ui-monospace, "SFMono-Regular", Consolas, monospace;
 
-  /* Neutral surfaces: warm off-white, never pure white */
-  --color-canvas: #f5f4ef;
-  --color-surface: #fbfaf7;
-  --color-sunken: #efede6;
-  --color-sidebar: #eae8e0;
-  --color-line: #d9d5ca;
-  --color-line-strong: #bfb9ab;
+  /* Neutral surfaces: soft lab-paper grey, never pure white */
+  --color-canvas: #f2f3f0;
+  --color-surface: #fafaf8;
+  --color-sunken: #ecede9;
+  --color-sidebar: #e8eae5;
+  --color-line: #d5d8d1;
+  --color-line-strong: #b4b8af;
 
   /* Text */
   --color-ink: #1e2227;
@@ -66,18 +67,26 @@
 @layer components {
   .prose-lab {
     color: var(--color-ink-soft);
-    font-size: 0.975rem;
+    font-size: 1rem;
   }
   .prose-lab > * + * {
     margin-top: 0.85rem;
   }
+  /* Keep running text at a readable measure; figures and tables use the full sheet. */
+  .prose-lab > p,
+  .prose-lab > ul,
+  .prose-lab > ol,
+  .prose-lab > h2,
+  .prose-lab > h3 {
+    max-width: 46rem;
+  }
   .prose-lab h2 {
     color: var(--color-ink);
-    font-size: 1.15rem;
-    font-weight: 600;
-    margin-top: 2rem;
-    padding-bottom: 0.3rem;
-    border-bottom: 1px solid var(--color-line);
+    font-family: var(--font-serif);
+    font-size: 1.3rem;
+    font-weight: 500;
+    line-height: 1.3;
+    margin-top: 2.25rem;
   }
   .prose-lab h3 {
     color: var(--color-ink);

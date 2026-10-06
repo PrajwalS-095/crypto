@@ -19,16 +19,14 @@ const OBJECTIVES = [
 export default function ObjectivePage() {
   return (
     <SectionPage slug="objective" intro="After performing this experiment, the student should be able to:">
-      <ol className="space-y-2.5">
+      <ul className="-mt-3 divide-y divide-line border-b border-line">
         {OBJECTIVES.map((text, i) => (
-          <li key={i} className="flex gap-3 text-[0.975rem] text-ink-soft">
-            <span className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-sm bg-accent-soft font-mono text-xs text-accent">
-              {i + 1}
-            </span>
+          <li key={i} className="flex gap-3 py-3 text-[0.975rem] text-ink-soft">
+            <span aria-hidden="true" className="mt-[0.6rem] h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
             <span>{text}</span>
           </li>
         ))}
-      </ol>
+      </ul>
     </SectionPage>
   );
 }

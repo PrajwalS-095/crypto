@@ -86,7 +86,7 @@ export function MessageFlow({ aliceName, bobName, view, failedStep }: MessageFlo
             <p className="truncate text-sm font-semibold" title={p.name}>
               {p.name}
             </p>
-            <p className="hidden truncate text-[10px] uppercase tracking-wide opacity-80 sm:block">{p.role}</p>
+            <p className="hidden truncate text-[11px] opacity-80 sm:block">{p.role}</p>
             <p className="mt-1 flex flex-wrap items-center justify-center gap-1 text-[11px] text-ink-soft">
               <span className="sr-only">Knows keys:</span>
               {knownKeys(p.id, view, failedStep).map((k) => (
