@@ -1,9 +1,10 @@
-export type KeyId = "A" | "B" | "AB";
+export type KeyId = "A" | "B" | "AB" | "S";
 
 const KEY_STYLES: Record<KeyId, string> = {
   A: "text-alice",
   B: "text-bob",
   AB: "text-kdc",
+  S: "text-kdc",
 };
 
 /** Renders K_A / K_B / K_AB in a consistent colour-coded notation. */

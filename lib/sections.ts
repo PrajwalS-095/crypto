@@ -5,7 +5,7 @@ export interface LabSection {
 }
 
 export const LAB_SECTIONS: readonly LabSection[] = [
-  { slug: "aim", title: "Aim", href: "/aim" },
+  { slug: "aim", title: "Introduction", href: "/aim" },
   { slug: "theory", title: "Theory", href: "/theory" },
   { slug: "objective", title: "Objective", href: "/objective" },
   { slug: "procedure", title: "Procedure", href: "/procedure" },
